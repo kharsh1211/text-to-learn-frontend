@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+}
+
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #343541; // Dark background for the main layout
+}
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: #202123; // Darker sidebar
+  color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}

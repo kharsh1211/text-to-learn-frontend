@@ -1,0 +1,36 @@
+<div class="history-container">
+  <button class="new-chat-button" (click)="startNewChat()">+ New Chat</button>
+
+  <div class="history-header">
+    <h4>Course History</h4>
+  </div>
+
+  <div class="search-wrapper">
+    <input type="text" placeholder="Search courses..." [(ngModel)]="searchText" (input)="filterCourses()"
+      class="search-input" />
+  </div>
+
+  <div class="history-list">
+    @for (courseItem of paginatedCourses; track courseItem.id) {
+    <div class="history-item" (click)="onSelectCourse(courseItem)">
+      {{ courseItem.title }}
+    </div>
+    } @empty {
+    <div class="no-results">
+      @if (searchText) {
+      <p>No results found for "{{ searchText }}"</p>
+      } @else {
+      <p>No courses in history yet.</p>
+      }
+    </div>
+    }
+  </div>
+
+  @if (totalPages > 1) {
+  <div class="pagination-controls">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">‹</button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">›</button>
+  </div>
+  }
+</div>

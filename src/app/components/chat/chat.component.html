@@ -1,0 +1,40 @@
+<div class="app-shell">
+  <div *ngIf="newChatPage" class="loading-overlay">
+    <div class="loader-container">
+      <div class="custom-spinner"></div>
+      <p>Generating your course </p>
+    </div>
+  </div>
+  <aside class="sidebar">
+    <app-course-list 
+    (courseSelected)="selectCourse($event)" 
+    (newChatRequested)="newChat()">
+  </app-course-list>
+  </aside>
+  <div class="chat-view">
+    <div class="chat-content">
+      @if (!showCourse || !course) {
+        <div class="welcome-message" @fadeInUp>
+          <h1>Text To Learn</h1>
+          <p>What would you like to learn about today?</p>
+        </div>
+      } 
+      @else {
+        <div class="course-display-area">
+          <app-course-detail [course]="course" [isNew]="isNewCourse"></app-course-detail>
+        </div>
+      }
+    </div>
+
+    @if (!isGenerating) {
+      <div class="chat-input-area">
+        <div class="input-wrapper">
+          <textarea placeholder="Message Text To Learn..." rows="1" [(ngModel)]="topic"
+            (keydown.enter)="createCourse()"></textarea>
+          <button class="send-button" (click)="createCourse()">&#10148;</button>
+        </div>
+        <p class="disclaimer">Text To Learn can make mistakes. Consider checking important information.</p>
+      </div>
+    }
+  </div>
+</div>

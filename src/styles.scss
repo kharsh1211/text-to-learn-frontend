@@ -1,1 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Custom Scrollbar for Webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #202123;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #434654;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #565869;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root, html, body, app-root {
+  height: 100%;
+}
+
+/* example layout container used by your top-level template (adjust selector if different) */
+.app-layout {
+  display: flex;
+  height: 100vh; /* full viewport height */
+  min-height: 0; /* important for children overflow to work */
+}
+
+.app-layout .sidebar {
+  width: 260px; /* your sidebar width */
+  flex: 0 0 260px;
+}
+
+.app-layout .main {
+  flex: 1 1 auto;
+  min-height: 0; /* critical so .main children can scroll */
+  display: flex;
+  flex-direction: column;
+}
+:root, html, body, app-root {
+  height: 100%;
+  margin: 0;
+}
+
+/* allow flex children to shrink so inner areas can scroll */
+app-root, app-root > *, .app-layout, .main, .content, .content-wrapper, .mat-sidenav-content {
+  min-height: 0;
+}

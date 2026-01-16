@@ -1,0 +1,188 @@
+/* 1. Main Container: Locked to Screen Height */
+.chat-view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;           /* Critical: Locks app to screen height */
+  max-height: 100vh;
+  width: 100%;
+  max-width: 800px;        /* Centers content like ChatGPT */
+  margin: 0 auto; 
+  position: relative;
+  overflow: hidden;        /* Prevents whole-page scrolling */
+}
+
+/* 2. Scrollable Content Area */
+.chat-content {
+  flex: 1 1 auto;
+  overflow-y: auto;        /* The only area allowed to scroll */
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  /* FIX: Using 'stretch' instead of 'center' prevents the top-clipping 
+     of long content during dynamic growth */
+  align-items: stretch;    
+  width: 100%;
+  min-height: 0;           /* Important for flex children to scroll */
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+/* 3. Welcome Message: Vertically and Horizontally Centered */
+.welcome-message {
+  margin: auto;            /* Centers only this element when course is null */
+  text-align: center;
+  color: #ececec;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* 4. Course Display Area (The Wrapper for app-course-detail) */
+.course-display-area {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;          /* Centers the course content horizontally */
+  display: block;
+  flex-shrink: 0;          /* Prevents the course from being squashed */
+  min-height: min-content; 
+}
+
+/* 5. Fixed Input Area at Bottom */
+.chat-input-area {
+  padding: 1rem; 
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;          /* Ensures footer never moves or disappears */
+}
+
+.input-wrapper {
+  display: flex;
+  background-color: #40414f;
+  border: 1px solid #565869;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 0.75rem;
+}
+
+textarea {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  resize: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  max-height: 200px;
+  overflow-y: auto;
+
+  &::placeholder {
+    color: #8e8ea0;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.send-button {
+  background: transparent;
+  border: none;
+  color: #8e8ea0;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: white;
+  }
+}
+
+.disclaimer {
+  font-size: 0.75rem;
+  color: #a2a2a2;
+  text-align: center;
+  padding-top: 0.75rem;
+}
+
+/* Subtle Scrollbar Styling */
+.chat-content::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-content::-webkit-scrollbar-thumb {
+  background-color: #4b4b4b;
+  border-radius: 10px;
+}
+.new-chat-button {
+  transition: all 0.2s ease;
+  
+  &:active {
+    transform: scale(0.9); /* Shrinks slightly when clicked */
+    background-color: #3e3f4b;
+  }
+}
+.app-shell {
+  display: flex;         /* Forces sidebar and chat-view side-by-side */
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;      /* Prevents double scrollbars */
+}
+app-course-list {
+  width: 260px;          /* Fixed width for the sidebar */
+  flex-shrink: 0;        /* Prevents the sidebar from squishing */
+}
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: #202123; // Darker sidebar
+  color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.loading-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(17, 17, 17, 0.85); /* Deep dark translucency */
+  backdrop-filter: blur(8px);               /* Premium frosted glass effect */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.loader-container {
+  text-align: center;
+  
+  /* The Modern Suite Spinner */
+  .custom-spinner {
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(16, 163, 127, 0.1); /* Faint background ring */
+    border-radius: 50%;
+    border-top: 3px solid #10a37f;            /* Your App Green */
+    box-shadow: 0 0 15px rgba(16, 163, 127, 0.2); /* Glow effect */
+    animation: spin 0.8s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+    margin: 0 auto 20px;
+  }
+
+  p {
+    color: #ececf1; /* Off-white text */
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: all 0.5s ease; /* Smooth string change transition */
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

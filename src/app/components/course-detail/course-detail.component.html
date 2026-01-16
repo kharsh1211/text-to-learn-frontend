@@ -1,0 +1,55 @@
+<div class="course-container" *ngIf="displayedCourse">
+    <header class="course-header">
+        <h1 class="course-main-title" style="color: white;">{{ displayedCourse.title }}</h1>
+    </header>
+    
+    <div class="course-intro">
+        <p class="course-description" style="color: white;">{{ displayedCourse.description }}</p>
+    </div>
+
+    <div class="modules-list">
+        @for (module of displayedCourse.modules; track module.id; let i = $index) {
+            <div class="module-card">
+                <h2 class="module-title">Module {{i+1}}: {{ module.title }}</h2>
+                
+                <div class="module-body">
+                    <div class="objectives-box" *ngIf="module.learning_objectives?.length">
+                        <h4>Learning Objectives</h4>
+                        <ul>
+                            @for (obj of module.learning_objectives; track obj) {
+                                <li>{{ obj }}</li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="lessons-container">
+                        @for (lesson of module.lessons; track lesson.id) {
+                            <div class="lesson-box">
+                                <h3 class="lesson-title">{{ lesson.title }}</h3>
+                                <p class="lesson-content">{{ lesson.detailed_content }}</p>
+                                <div class="exercise-card" *ngIf="lesson.practical_exercise">
+                                    <strong>🛠 Practical Exercise:</strong>
+                                    <p>{{ lesson.practical_exercise }}</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    @if (module.moduleVideoUrl) {
+                        <div class="lesson-box module-video-box">
+                            <h3 class="lesson-title">📺 Module Summary: {{ module.title }}</h3>
+                            <div class="video-wrapper">
+                                <iframe 
+                                    [src]="getSafeVideoUrl(module.moduleVideoUrl)" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
