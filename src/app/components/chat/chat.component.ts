@@ -72,7 +72,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.isGenerating = false;
   }
   selectCourse(selectedCourse: Course) {
-    console.log('Course Selected:', selectedCourse);
+    // console.log('Course Selected:', selectedCourse);
     this.course = selectedCourse;
     this.isNewCourse = false;
     this.showCourse = true;

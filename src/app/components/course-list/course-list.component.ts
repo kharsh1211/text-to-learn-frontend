@@ -39,7 +39,7 @@ export class CourseListComponent implements OnInit {
   }
 
   onSelectCourse(course: Course): void {
-    console.log('Sidebar: Course clicked!', course.title);
+    // console.log('Sidebar: Course clicked!', course.title);
     this.courseSelected.emit(course);
   }
 
@@ -57,7 +57,7 @@ export class CourseListComponent implements OnInit {
       this.filteredCourses = [...this.courses];
       return;
     }
-    console.log('Searching for:', this.searchText);
+    // console.log('Searching for:', this.searchText);
     // 2. Perform a case-insensitive search
     const query = this.searchText.toLowerCase().trim();
     this.filteredCourses = this.courses.filter((course) =>

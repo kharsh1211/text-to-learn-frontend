@@ -4,6 +4,8 @@ import {
   OnInit,
   OnDestroy,
   SimpleChanges,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -19,6 +21,7 @@ import { Course } from '../../../services/course.service';
 export class CourseDetailComponent implements OnInit, OnDestroy {
   @Input() course!: any; // Using any to match the dynamic AI structure
   @Input() isNew: boolean = false;
+  @ViewChild('scrollAnchor') private scrollAnchor!: ElementRef;
 
   activeModuleIndex: number | null = 0;
   displayedCourse: any = { title: '', description: '', modules: [] };
@@ -65,6 +68,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
   // 3. Type the Course Description
   await this.typeString(fullCourse.description, (val) => {
     this.displayedCourse.description = val;
+    this.scrollToBottom();
   });
 
   // 4. Loop through Modules Sequentially
@@ -122,7 +126,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
       newModule.moduleVideoUrl = module.moduleVideoUrl;
 
       // Small delay to allow the iframe to affect the DOM height
-      await new Promise((r) => setTimeout(r, 600));
+      setTimeout(() => this.scrollToBottom(), 100);
     }
   }
 }
@@ -194,6 +198,12 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
   isDirectVideo(url: string): boolean {
     return !!this.extractId(url);
   }
+  scrollToBottom() {
+  if (this.scrollAnchor) {
+    // We use 'smooth' so it doesn't look jerky
+    this.scrollAnchor.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+}
 
   ngOnDestroy() {
     this.clearAllIntervals();
